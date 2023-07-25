@@ -1,0 +1,271 @@
+{
+	"formatVersion": 4,
+	"modifications": [
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Plant",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "plant",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Image",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "image",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "WateringHistory",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "watering_history",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Plant",
+			"field": {
+				"name": "personId",
+				"columnName": "person_id",
+				"type": "Uuid",
+				"nullable": true,
+				"columnType": "uuid"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Plant",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Plant",
+			"field": {
+				"name": "type",
+				"columnName": "type",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Plant",
+			"field": {
+				"name": "wateringSchedule",
+				"columnName": "watering_schedule",
+				"type": "Integer",
+				"nullable": true,
+				"columnType": "integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Plant",
+			"field": {
+				"name": "lastWatered",
+				"columnName": "last_watered",
+				"type": "DateTime",
+				"nullable": true,
+				"columnType": "timestamptz"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "url",
+				"columnName": "url",
+				"type": "String",
+				"nullable": false,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "width",
+				"columnName": "width",
+				"type": "Integer",
+				"nullable": true,
+				"columnType": "integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "height",
+				"columnName": "height",
+				"type": "Integer",
+				"nullable": true,
+				"columnType": "integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "size",
+				"columnName": "size",
+				"type": "Integer",
+				"nullable": true,
+				"columnType": "integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "type",
+				"columnName": "type",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "alt",
+				"columnName": "alt",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Image",
+			"field": {
+				"name": "createdAt",
+				"columnName": "created_at",
+				"type": "DateTime",
+				"nullable": false,
+				"columnType": "timestamptz",
+				"default": "now"
+			},
+			"fillValue": "now"
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "WateringHistory",
+			"field": {
+				"name": "wateredAt",
+				"columnName": "watered_at",
+				"type": "DateTime",
+				"nullable": true,
+				"columnType": "timestamptz"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Plant",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "picture",
+				"target": "Image",
+				"inversedBy": "plantPicture",
+				"nullable": true,
+				"joiningColumn": {
+					"columnName": "picture_id",
+					"onDelete": "set null"
+				}
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "plantPicture",
+				"target": "Plant",
+				"ownedBy": "picture"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "WateringHistory",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "plant",
+				"target": "Plant",
+				"inversedBy": "wateringHistory",
+				"joiningColumn": {
+					"columnName": "plant_id",
+					"onDelete": "restrict"
+				},
+				"nullable": false
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "wateringHistory",
+				"target": "WateringHistory",
+				"ownedBy": "plant"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "Plant",
+			"unique": {
+				"fields": [
+					"personId"
+				],
+				"name": "unique_Plant_personId"
+			}
+		}
+	]
+}
